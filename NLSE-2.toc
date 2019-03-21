@@ -1,0 +1,25 @@
+\contentsline {section}{\numberline {1}Abstract}{2}
+\contentsline {section}{\numberline {2}Notation}{2}
+\contentsline {section}{\numberline {3}Derivation of Constants}{2}
+\contentsline {subsection}{\numberline {3.1}Constant M}{2}
+\contentsline {subsection}{\numberline {3.2}Constant N}{3}
+\contentsline {section}{\numberline {4}NLSE Schemes}{4}
+\contentsline {subsection}{\numberline {4.1}NLS1}{5}
+\contentsline {subsection}{\numberline {4.2}NLS2}{5}
+\contentsline {subsection}{\numberline {4.3}Crank-Nicholson}{6}
+\contentsline {section}{\numberline {5}Experiment 1 - Sech(x)}{7}
+\contentsline {subsection}{\numberline {5.1}NLS1}{7}
+\contentsline {subsection}{\numberline {5.2}NLS2}{8}
+\contentsline {subsection}{\numberline {5.3}Crank-Nicholson}{9}
+\contentsline {subsection}{\numberline {5.4}Conclusion of Experiment 1}{9}
+\contentsline {section}{\numberline {6}Experiment 2 - One Bump}{10}
+\contentsline {subsection}{\numberline {6.1}NLS1}{10}
+\contentsline {subsection}{\numberline {6.2}NLS2}{11}
+\contentsline {subsection}{\numberline {6.3}Crank-Nicholson}{12}
+\contentsline {subsection}{\numberline {6.4}Conclusion - One Bump}{12}
+\contentsline {section}{\numberline {7}Experiment 3 - Competing Waves}{13}
+\contentsline {subsection}{\numberline {7.1}Competing Waves with Crank-Nicholson}{14}
+\contentsline {subsection}{\numberline {7.2}Competing Waves with NLS2}{14}
+\contentsline {subsection}{\numberline {7.3}Competing Waves with NLS1}{15}
+\contentsline {subsection}{\numberline {7.4}Conclusion - Two Bump}{16}
+\contentsline {section}{\numberline {8}Conclusion}{16}

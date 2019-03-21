@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,mathtools,amsfonts}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+\title{Numerical Methods HW 10.2}
+\author{Michael Groff 
+}
+\maketitle
+\text{ }\\
+\textbf{Problem 10.2.10}
+
+\begin{proof}
+\textbf{•}\\
+We have that the second order Runge Kutta is: \[ x(t +h) = x(t)+w_1 h f(t,x)+w_2 h f(t +\alpha h,x + \beta h f(t,x) \]
+We can further expand this using the second order Taylor series on functions of two variables:
+\[ f(x+ h, y+ k) = \sum_{i=0}^{\infty} \bigg{(} h \frac{\partial}{\partial x} + k \frac{\partial}{\partial y} \bigg{)}^i f(x,y)\]
+Letting $t , \alpha h, x$ and $\beta h f$ be $x,h,y,k$ respectively we are obtain: 
+\[ f(t +\alpha h,x + \beta h f(t,x)) = f + \alpha h f_t + \beta h f f_x + \frac{1}{2} \bigg{(} \alpha h \frac{\partial}{\partial x} + \beta h f \frac{\partial}{\partial y} \bigg{)}^2 f \]
+Substituting this result into our second order Runge-Kutta and letting $\beta = \alpha, w_1 = 1- \frac{1}{2 \alpha} , w_2 = \frac{1}{2 \alpha} $ we obtain:
+\[x(t+h) = x(t) + hf + \frac{1}{2} h^2 f + \frac{1}{2} h^2 f f_x + \frac{\alpha}{4} h^3 \bigg{(}  \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x} \bigg{)}^2 f\]
+Next we take the third order Taylor approximation:
+\[x(t+h) = x(t) + h x'(t) + \frac{h^2}{2} x''(t)+\frac{h^3}{6} x'''(t)\]
+Using the fact that $x'(t) = f(t,x)$ we then have that
+\[ x'' = \frac{d x'}{dt} = \frac{d f(t,x) }{dt} = \bigg{(} \frac{\partial}{\partial x} \bigg{)} \bigg{(} \frac{dt}{dt} \bigg{)}  + \bigg{(} \frac{\partial f}{\partial x} \bigg{)} \bigg{(} \frac{dx}{dt} \bigg{)} = f_t + f_x f = \bigg{(}  \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x} \bigg{)} f\]
+\[ x''' = \frac{d x''}{dt} = \frac{d}{dt} \bigg{(} \bigg{(}  \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x} \bigg{)} f \bigg{)} = \bigg{(}   \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x}  \bigg{)}^2 + f_x \bigg{(}   \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x}  \bigg{)} f \]
+This changes our Third Order Taylor to: 
+\[x(t+h) = x(t) + hf + \frac{1}{2} h^2 f + \frac{1}{2} h^2 f f_x + \frac{1}{6} h^3 \bigg{(}   \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x}  \bigg{)}^2 + \frac{1}{6} h^3 f_x \bigg{(}   \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x}  \bigg{)} f  \]
+Utilizing the fact that the terms for each of these approximation are the same until the $h^3$ terms we calculate the error as the difference in these terms:
+\[ \frac{1}{6} h^3 \bigg{(}   \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x}  \bigg{)}^2 + \frac{1}{6} h^3 f_x \bigg{(}   \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x}  \bigg{)} f -  \frac{\alpha}{4} h^3 \bigg{(}  \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x} \bigg{)}^2 f\]
+Which is equivalent to:
+\[\frac{1}{4} h^3 \bigg{(} \frac{2}{3} - \alpha  \bigg{)} \bigg{(}  \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x} \bigg{)}^2 f + \frac{1}{6} h^3 f_x \bigg{(}   \frac{\partial}{\partial t} +  f \frac{\partial}{\partial x}  \bigg{)} f\]
+
+
+
+\end{proof}
+
+\end{document}
+
+

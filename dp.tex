@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,mathtools,amsfonts}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+\title{Numerical Methods HW}
+\author{Michael Groff 
+}
+\maketitle
+\text{ }\\
+\textbf{Double Pendulum Problem}
+
+\textbf{•}\\
+Derive a closed derivation for the motion of a double pendulum in vertor form.
+
+\begin{proof}
+\textbf{•}\\
+We start with some definitions: let $l_1,l_2$ be the length of the rigid wires, $m_1,m_2$ the mass of the bobs, and $\theta_1, \theta_2$ the angl each of the wires makes with the defined vertical.\\
+The positions of the bobs in a Cartesian plane can then be defined as:
+\begin{align}
+x_1 & = l_1 sin(\theta_1) \\
+y_1 & = -l_1 cos(\theta_1)\\
+x_2 & = l_1 sin(\theta_1)+l_2 sin(\theta_2)\\
+y_2 & = -l_1 cos(\theta_1) - l_2 cos(\theta_2)
+\end{align}
+We then have the potential energy of the system given by:
+\begin{align}
+V &= m_1gy_1 + m_2gy_2 \nonumber \\
+& = -(m_1+m_2)gl_1gcos(\theta_1) - m_2g l_2cos(\theta_2)
+\end{align}
+And the Kinetic Energy:
+\begin{align}
+T &= \dfrac{1}{2}m_1v^2_1 + \dfrac{1}{2}m_2v^2_2 \nonumber \\
+&= \dfrac{1}{2}m_1(x^2_1+ y^2_1) + \dfrac{1}{2}m_2(x^2_2+ y^2_2) \nonumber  \\
+&= \dfrac{1}{2}m_1l_1^2\dot{\theta}^2_1 + \dfrac{1}{2}(m_2l_1^2\dot{\theta}_1^2 + m_2l_2^2\dot{\theta}_2^2) + m_2l_1l_2\dot{\theta}_1 \dot{\theta}_2 cos(\theta_1 - \theta_2)
+\end{align}
+The Langragian of this system is then:
+\begin{align}
+L &\equiv T - V \nonumber \\
+&= \dfrac{1}{2}(m_1+m_2)l_1^2\dot{\theta}^2_1 + \dfrac{1}{2}m_2l_2^2\dot{\theta}_2^2 + m_2l_1l_2 \dot{\theta_1}\dot{\theta}_2 cos(\theta_1 - \theta_2) \nonumber \\
+&+ (m_1+m_2)gl_1gcos(\theta_1) + m_2g l_2cos(\theta_2)
+\end{align}
+Now for $\theta_1$:
+\begin{align}
+\dfrac{\partial L}{\partial \dot{\theta}_1} &= m_1l_1^2\theta_1 + m_2l_1^2\theta_1 + m_2l_1l_2\theta_2cos(\theta_1 - \theta_2)  \\
+\dfrac{d}{dt}(\dfrac{\partial L}{\partial \dot{\theta}_1}) &= (m_1+m_2)l_1^2\ddot{\theta_1} + m_2l_1l_2\ddot{\theta}_2 cos(\theta_1 - \theta_2) - m_2l_1l_2\dot{\theta}_2sin(\theta_1-\theta_2)(\dot{\theta_1}-\dot{\theta_2}) \\
+\dfrac{\partial L}{\partial \theta_1} &= -l_1g(m_1+m_2)sin(\theta_1) - m_2l_1l_2\dot{\theta}_1 \dot{\theta}_2 sin(\theta_1-\theta_2)
+\end{align}
+Then the Euler Lagrange equation for $\theta_1$ is $\dfrac{d}{dt}(\dfrac{\partial L}{\partial \dot{\theta}_1}) - \dfrac{\partial L}{\partial \theta_1} = 0$ which is equivalent to:
+\[(m_1+m_2)l_1^2\ddot{\theta}_1 + m_2l_1l_2\ddot{\theta}_2cos(\theta_1-\theta_2)+m_2l_1l_2\dot{\theta}_2^2sin(\theta_1-\theta_2) + l_1g(m_1+m_2)sin(\theta_1) = 0\]
+We can divide through by $l_1$ yielding:
+\[(m_1+m_2)l_1\ddot{\theta}_1 + m_2l_2\ddot{\theta}_2cos(\theta_1-\theta_2)+m_2l_2\dot{\theta}_2^2sin(\theta_1-\theta_2) + g(m_1+m_2)sin(\theta_1) = 0\]
+Repeating this process for $\theta_2$:
+\begin{align}
+\dfrac{\partial L}{\partial \dot{\theta}_2} &=  m_2l_2^2\theta_1 + m_2l_1l_2\theta_2cos(\theta_1 - \theta_2)  \\
+\dfrac{d}{dt}(\dfrac{\partial L}{\partial \dot{\theta}_2}) &= (m_1+m_2)l_2^2\ddot{\theta_1} + m_2l_1l_2\ddot{\theta}_2 cos(\theta_1 - \theta_2) - m_2l_1l_2\dot{\theta}_2sin(\theta_1-\theta_2)(\dot{\theta_1}-\dot{\theta_2}) \\
+\dfrac{\partial L}{\partial \theta_2} &= m_2l_1l_2\dot{\theta}_1 \dot{\theta}_2 sin(\theta_1-\theta_2) - l_2gm_2sin(\theta_2)
+\end{align}
+Then the Euler Lagrange equation for $\theta_2$ is:
+\[m_2l_2^2\ddot{\theta}_2 + m_2l_1l_2\ddot{\theta}_2 cos(\theta_1 - \theta_2) - m_2l_1l_2\dot{\theta}_2^2sin(\theta_1-\theta_2) + l_2m_2gsin(\theta_2) = 0\]
+Dividing through by $l_2$ and $m_2$ this time yields:
+\[l_2\ddot{\theta}_2 + l_1\ddot{\theta}_2 cos(\theta_1 - \theta_2) - l_1l_2\dot{\theta}_2^2sin(\theta_1-\theta_2) + gsin(\theta_2) = 0\]
+Now we can substitute variables $x_1,x_2,x_3,x_4$ in for $\theta_1,\theta_2, \dot{\theta}_1, \dot{\theta}_2$ respectively and letting $\Delta \theta = \theta_1-\theta_2$ and $M = m_1+m_2$ to obtain system of equations:
+\begin{align*}
+Ml_1^2\dot{x_3} + m_2l_2\dot{x_4}cos(\Delta \theta)-m_2l_2x_4^2sin(\theta_1-\theta_2) + Mgsin(x_1) &= 0 \\
+l_2\dot{x_4} + l_1\dot{x}_2 cos(\Delta \theta) - l_1x_3^2sin(\Delta \theta) + gsin(x_2) &= 0
+\end{align*}
+Then we can use the substitutions $C = cos(\Delta \theta), S = sin(\Delta \theta)$ and turn this into a matrix of equations:
+\[ \left( \begin{array}{cc}
+Ml_1 & m_2l_2C \\
+l_1C & l_2
+\end{array} \right)
+%
+\left( \begin{array}{c}
+\dot{x}_3  \\
+\dot{x}_4 
+\end{array} \right)
+=
+\left( \begin{array}{c}
+m_2l_2x_4^2S-Mgsin(x_1) \\
+-l_1x_3^2S-gsin(x_2)
+\end{array} \right)
+\]
+Multiplying both sides by the inverse of the first matrix with determinant:
+\[D = Ml_1l_2 - m_2l_1l_2C^2  = l_1l_2M(1-\dfrac{m_2}{M}C^2) > 0\]
+We obtain the system: 
+\[\left( \begin{array}{c}
+\dot{x}_3  \\
+\dot{x}_4 
+\end{array} \right)
+=
+\dfrac{1}{D}
+\left( \begin{array}{cc}
+l_2 & -m_2l_2C  \\
+-l_1C & Ml_1
+\end{array} \right)
+\left( \begin{array}{c}
+m_2l_2x_4^2S-Mgsin(x_1) \\
+-l_1x_3^2S-gsin(x_2)
+\end{array} \right)
+\equiv
+\left( \begin{array}{c}
+F_3 \\
+F_4
+\end{array} \right)
+\]
+Thus our total system is:
+\[
+\mathbb{X} = 
+\left( \begin{array}{c}
+\dot{x}_1 \\
+\dot{x}_2 \\
+\dot{x}_3 \\
+\dot{x}_4
+\end{array} \right)
+=
+\left( \begin{array}{c}
+x_3 \\
+x_4 \\
+F_3 \\
+F_4
+\end{array} \right)
+; \textbf{  }
+\mathbb{X}_0 = 
+\left( \begin{array}{c}
+x_1 \\
+x_2 \\
+x_3 \\
+x_4
+\end{array} \right)
+(0)
+\]
+Where 
+\[\mathbb{X}' = F(t,\mathbb{X}); \textbf{ } \mathbb{X}_0 = \mathbb{X}(0) \]
+
+
+
+
+\end{proof}
+
+\end{document}
+
+
